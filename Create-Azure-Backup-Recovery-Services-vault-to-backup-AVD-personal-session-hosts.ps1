@@ -19,6 +19,7 @@ Create a resource group backup irp, if it does not already exist. Add specified 
 Create the Recovery Services vault if it does not exist.
 Set specified tags on the Recovery Services vault.
 Specify the type of backup storage redundancy for the Recovery Services vault (which can be modified only if there are no backup items protected in the vault).
+Enable Cross Region Restore (CRR).
 Set the log and metrics settings for the Recovery Services vault if they don't exist.
 
 .NOTES
@@ -92,6 +93,7 @@ $writeSeperatorSpaces = " - "
 
 Set-Item -Path Env:\SuppressAzurePowerShellBreakingChangeWarnings -Value $true | Out-Null
 Update-AzConfig -DisplayBreakingChangeWarning $false | Out-Null
+$warningPreference = "SilentlyContinue"
 
 ## ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -224,6 +226,15 @@ Write-Host ($writeEmptyLine + "# Backup storage redundancy set to $backupStorage
 
 ## ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+## Enable Cross Region Restore (CRR)
+
+Set-AzRecoveryServicesBackupProperty -Vault $vault -EnableCrossRegionRestore
+
+Write-Host ($writeEmptyLine + "# Cross Region Restore is enabled for Recovery Services vault $vaultName" + $writeSeperatorSpaces + $currentTime)`
+-foregroundcolor $foregroundColor2 $writeEmptyLine
+
+## ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ## Set the log and metrics settings for the Recovery Services vault if they don't exist
 
 try {
@@ -254,4 +265,3 @@ Write-Host ($writeEmptyLine + "# Script completed" + $writeSeperatorSpaces + $cu
 -foregroundcolor $foregroundColor1 $writeEmptyLine 
 
 ## ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
