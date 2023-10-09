@@ -3,6 +3,6 @@ This repository contains Azure PowerShell and PowerShell scripts you can use to 
 
 You can find more information about these scripts on my blog: https://wmatthyssen.com
 
-Currently this repository holds the following scritps:
+Currently, this repository holds the following scripts:
 
 - **Create-Azure-Backup-Recovery-Services-vault-to-backup-AVD-personal-session-hosts.ps1**
