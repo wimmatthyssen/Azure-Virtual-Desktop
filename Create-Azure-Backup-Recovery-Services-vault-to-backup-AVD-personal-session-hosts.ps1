@@ -14,8 +14,8 @@ Save the Log Analytics workspace from the management subscription as a variable.
 Change the current context to the specified Azure Virtual Desktop (AVD) subscription.
 Store a specified set of tags in a hash table.
 Register required Azure resource provider (Microsoft.RecoveryServices) in your subscription (only necessary if you use Azure Backup for the first time), if not already registered.
-Create a resource group backup if it does not already exist. Add specified tags and do not add a resource lock.
-Create a resource group backup irp, if it does not already exist. Add specified tags and do not add a resource lock.
+Create a resource group backup if one does not already exist. Also, apply the necessary tags to this resource group.
+Create a resource group backup irp if one does not already exist. Also, apply the necessary tags to this resource group.
 Create the Recovery Services vault if it does not exist.
 Set specified tags on the Recovery Services vault.
 Specify the type of backup storage redundancy for the Recovery Services vault (which can be modified only if there are no backup items protected in the vault).
@@ -155,7 +155,7 @@ Write-Host ($writeEmptyLine + "# Specified set of tags available to add" + $writ
 
 ## ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Create a resource group backup if it does not already exist. Also, apply the necessary tags to this resource group and do not add a resource lock
+## Create a resource group backup if one does not already exist. Also, apply the necessary tags to this resource group
 
 try {
     Get-AzResourceGroup -Name $rgNameBackup -ErrorAction Stop | Out-Null 
@@ -174,7 +174,7 @@ Write-Host ($writeEmptyLine + "# Resource group $rgNameBackup available with tag
 
 ## ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Create a resource group backup irp if it does not already exist. Also, apply the necessary tags to this resource group and do not add a resource lock
+## Create a resource group backup irp if one does not already exist. Also, apply the necessary tags to this resource group.
 
 try {
     Get-AzResourceGroup -Name $rgNameBackupIrp -ErrorAction Stop | Out-Null 
