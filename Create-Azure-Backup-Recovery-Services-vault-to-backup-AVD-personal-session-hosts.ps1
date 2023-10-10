@@ -21,6 +21,7 @@ Set specified tags on the Recovery Services vault.
 Specify the type of backup storage redundancy for the Recovery Services vault (which can be modified only if there are no backup items protected in the vault).
 Enable Cross Region Restore (CRR).
 Set the log and metrics settings for the Recovery Services vault if they don't exist.
+Remove the default backup protection policies.
 
 .NOTES
 
@@ -99,7 +100,7 @@ $warningPreference = "SilentlyContinue"
 
 ## Write script started
 
-Write-Host ($writeEmptyLine + "# Script started. Without errors, it can take up to 4 minutes to complete" + $writeSeperatorSpaces + $currentTime)`
+Write-Host ($writeEmptyLine + "# Script started. Without errors, it can take up to 2 minutes to complete" + $writeSeperatorSpaces + $currentTime)`
 -foregroundcolor $foregroundColor1 $writeEmptyLine 
 
 ## ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -221,7 +222,7 @@ Write-Host ($writeEmptyLine + "# Tags Recovery Services vault $vaultName set" + 
 
 Set-AzRecoveryServicesBackupProperty -Vault $vault -BackupStorageRedundancy $backupStorageRedundancy
 
-Write-Host ($writeEmptyLine + "# Backup storage redundancy set to $backupStorageRedundancy" + $writeSeperatorSpaces + $currentTime)`
+Write-Host ($writeEmptyLine + "# Backup storage redundancy is set to $backupStorageRedundancy for Recovery Services vault $vaultName" + $writeSeperatorSpaces + $currentTime)`
 -foregroundcolor $foregroundColor2 $writeEmptyLine
 
 ## ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -255,6 +256,17 @@ try {
 }
 
 Write-Host ($writeEmptyLine + "# Recovery Services vault $vaultName diagnostic settings set" + $writeSeperatorSpaces + $currentTime)`
+-foregroundcolor $foregroundColor2 $writeEmptyLine
+
+## ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Remove the default backup protection policies
+
+Remove-AzRecoveryServicesBackupProtectionPolicy -Name "DefaultPolicy" -VaultId $vault.ID -Force | Out-Null
+Remove-AzRecoveryServicesBackupProtectionPolicy -Name "HourlyLogBackup" -VaultId $vault.ID -Force | Out-Null
+Remove-AzRecoveryServicesBackupProtectionPolicy -Name "EnhancedPolicy" -VaultId $vault.ID -Force | Out-Null
+
+Write-Host ($writeEmptyLine + "# Default Backup protection policies removed from vault $vaultName" + $writeSeperatorSpaces + $currentTime)`
 -foregroundcolor $foregroundColor2 $writeEmptyLine
 
 ## ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
