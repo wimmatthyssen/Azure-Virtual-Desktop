@@ -34,7 +34,7 @@ Set-AzContext -tenantID "xxxxxxxx-xxxx-xxxx-xxxxxxxxxxxx" (if not using the defa
 
 .LINK
 
-
+https://wmatthyssen.com/2023/10/11/set-up-an-azure-backup-recovery-services-vault-and-backup-protection-policy-to-backup-your-avd-personal-session-hosts/
 #>
 
 ## -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
